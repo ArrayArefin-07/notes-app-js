@@ -2,6 +2,13 @@ const notesContainer = document.querySelector(".notes-container");
 const createBtn = document.querySelector(".btn");
 let notes = document.querySelectorAll(".input-box")
 
+
+//Display notes
+function showNotes(){
+  notesContainer.innerHTML = localStorage.getItem("notes");
+}
+showNotes();
+
 //set data in localstorage
 function updateStorage(){
   localStorage.setItem("notes", notesContainer.innerHTML);
@@ -17,6 +24,7 @@ createBtn.addEventListener("click", ()=> {
   img.src = "images/delete.png";
   notesContainer.appendChild(inputBox).appendChild(img);
 
+  updateStorage()
 })
 
 //delete note
@@ -32,5 +40,12 @@ notesContainer.addEventListener("click", function(e){
         updateStorage();
       }
     })
+  }
+})
+
+document.addEventListener("keydown", event =>{
+  if(event.key === "Enter"){
+    document.execCommand("insertLineBreak");
+    event.preventDefault();
   }
 })
